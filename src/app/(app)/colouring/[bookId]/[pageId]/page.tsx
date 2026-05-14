@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import CanvasWrapper from "@/components/canvas/CanvasWrapper";
 
 interface PageProps {
@@ -7,23 +8,34 @@ interface PageProps {
 
 export default async function ColouringPage({ params }: PageProps) {
   const { bookId, pageId } = await params;
+  const supabase = await createClient();
 
-  if (!bookId || !pageId) notFound();
+  const { data: pages } = await supabase
+    .from("pages")
+    .select("id, page_number, outline_url, animatable_elements_url")
+    .eq("book_id", bookId)
+    .order("page_number", { ascending: true });
 
-  // Phase 3: fetch real page config from Supabase.
-  // For now, placeholder assets exercise the canvas engine.
-  const pageConfig = {
-    outlineUrl: "/assets/placeholder/outline.png",
-    animatableElementsUrl: "/assets/placeholder/animatable_elements.json",
-  };
+  if (!pages || pages.length === 0) notFound();
+
+  const currentIndex = pages.findIndex((p) => p.id === pageId);
+  if (currentIndex === -1) notFound();
+
+  const currentPage = pages[currentIndex];
+  const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
+  const nextPage = currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       <CanvasWrapper
-        outlineUrl={pageConfig.outlineUrl}
-        animatableElementsUrl={pageConfig.animatableElementsUrl}
+        outlineUrl={currentPage.outline_url}
+        animatableElementsUrl={currentPage.animatable_elements_url}
         bookId={bookId}
         pageId={pageId}
+        prevPageId={prevPage?.id}
+        nextPageId={nextPage?.id}
+        pageNumber={currentPage.page_number}
+        totalPages={pages.length}
       />
     </div>
   );

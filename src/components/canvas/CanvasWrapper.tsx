@@ -24,6 +24,10 @@ interface CanvasWrapperProps {
   bookId: string;
   pageId: string;
   initialColouredImageUrl?: string;
+  prevPageId?: string;
+  nextPageId?: string;
+  pageNumber: number;
+  totalPages: number;
 }
 
 export default function CanvasWrapper(props: CanvasWrapperProps) {

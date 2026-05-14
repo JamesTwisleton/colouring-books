@@ -27,6 +27,7 @@ export interface UseColouringEngineOptions {
   brushOpacity: number; // 0–1
   onSave?: (blob: Blob, fillPercentage: number) => void;
   onComplete?: (fillPercentage: number) => void;
+  onFillUpdate?: (fill: number) => void; // 0–1, called after every stroke
 }
 
 function hexToPixi(hex: string): number {
@@ -57,6 +58,7 @@ export function useColouringEngine({
   brushOpacity,
   onSave,
   onComplete,
+  onFillUpdate,
 }: UseColouringEngineOptions) {
   const brushColourRef = useRef(brushColour);
   const brushWidthRef = useRef(brushWidth);
@@ -249,11 +251,12 @@ export function useColouringEngine({
       let completionFired = false;
 
       function checkCompletion() {
-        if (completionFired || cancelled) return;
+        if (cancelled) return;
         try {
           const { pixels } = app.renderer.extract.pixels({ target: drawSprite });
           const fill = estimateFillPercentage(pixels);
-          if (fill >= COMPLETION_THRESHOLD) {
+          onFillUpdate?.(fill);
+          if (!completionFired && fill >= COMPLETION_THRESHOLD) {
             completionFired = true;
             triggerCompletionAnimation(fill);
           }

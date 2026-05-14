@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+  <!-- Sky -->
+  <rect x="0" y="0" width="800" height="390" fill="none" stroke="#222" stroke-width="2"/>
+  <!-- Ground -->
+  <rect x="0" y="390" width="800" height="170" fill="none" stroke="#222" stroke-width="2"/>
+
+  <!-- Sun -->
+  <circle cx="680" cy="80" r="52" fill="none" stroke="#222" stroke-width="3.5"/>
+  <line x1="680" y1="12" x2="680" y2="2"  stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="680" y1="148" x2="680" y2="158" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="612" y1="80" x2="602" y2="80" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="748" y1="80" x2="758" y2="80" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="632" y1="32" x2="625" y2="25" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="728" y1="128" x2="735" y2="135" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="728" y1="32" x2="735" y2="25" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="632" y1="128" x2="625" y2="135" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Cloud left -->
+  <path d="M55 90 Q58 68 82 72 Q84 52 108 56 Q118 40 138 52 Q158 44 162 68 Q178 68 174 90 Z"
+        fill="none" stroke="#222" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Cloud right -->
+  <path d="M490 60 Q494 44 514 48 Q518 30 540 36 Q548 22 566 34 Q582 28 584 50 Q596 52 592 64 L488 64 Z"
+        fill="none" stroke="#222" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Car body -->
+  <path d="M40 390 L40 330 Q40 310 60 310 L240 310 L290 250 L570 250 L620 310 L740 310 Q760 310 760 330 L760 390 Z"
+        fill="none" stroke="#222" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Car roof / window area -->
+  <path d="M260 310 L300 258 L560 258 L600 310 Z"
+        fill="none" stroke="#222" stroke-width="3.5" stroke-linejoin="round"/>
+
+  <!-- Window divider (centre post) -->
+  <line x1="430" y1="258" x2="430" y2="310" stroke="#222" stroke-width="3"/>
+
+  <!-- Left window -->
+  <path d="M270 308 L308 262 L424 262 L424 308 Z"
+        fill="none" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Right window -->
+  <path d="M436 262 L556 262 L592 308 L436 308 Z"
+        fill="none" stroke="#222" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Cockapoo head in left window -->
+  <circle cx="346" cy="285" r="52" fill="none" stroke="#222" stroke-width="3.5"/>
+  <!-- Left ear -->
+  <ellipse cx="300" cy="262" rx="24" ry="36" fill="none" stroke="#222" stroke-width="3"/>
+  <!-- Right ear -->
+  <ellipse cx="392" cy="262" rx="24" ry="36" fill="none" stroke="#222" stroke-width="3"/>
+  <!-- Fluffy top-knot curls -->
+  <path d="M316 240 Q326 228 338 238" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M346 232 Q356 220 368 232" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <circle cx="328" cy="278" r="9" fill="none" stroke="#222" stroke-width="2.5"/>
+  <circle cx="364" cy="278" r="9" fill="none" stroke="#222" stroke-width="2.5"/>
+  <circle cx="330" cy="277" r="4" fill="#222"/>
+  <circle cx="366" cy="277" r="4" fill="#222"/>
+  <circle cx="332" cy="274" r="1.5" fill="white"/>
+  <circle cx="368" cy="274" r="1.5" fill="white"/>
+  <!-- Nose -->
+  <ellipse cx="346" cy="293" r="11" ry="7" fill="none" stroke="#222" stroke-width="2.5"/>
+  <!-- Mouth -->
+  <path d="M335 302 Q346 313 357 302" fill="none" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tongue -->
+  <path d="M340 312 Q346 322 352 312" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Paw waving from right window -->
+  <path d="M490 308 Q490 280 510 270 Q530 260 535 280 Q540 260 555 268 Q560 282 550 290 Q565 280 568 295 Q560 308 540 305 Q520 308 490 308 Z"
+        fill="none" stroke="#222" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Paw pads -->
+  <circle cx="504" cy="296" r="5" fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="516" cy="289" r="4" fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="529" cy="285" r="4" fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="541" cy="289" r="4" fill="none" stroke="#222" stroke-width="2"/>
+
+  <!-- Headlights -->
+  <ellipse cx="748" cy="358" rx="14" ry="10" fill="none" stroke="#222" stroke-width="2.5"/>
+  <ellipse cx="52" cy="358" rx="14" ry="10" fill="none" stroke="#222" stroke-width="2.5"/>
+
+  <!-- Door line -->
+  <line x1="400" y1="310" x2="400" y2="390" stroke="#222" stroke-width="2.5"/>
+  <!-- Door handles -->
+  <rect x="362" y="350" width="22" height="7" rx="3" fill="none" stroke="#222" stroke-width="2"/>
+  <rect x="416" y="350" width="22" height="7" rx="3" fill="none" stroke="#222" stroke-width="2"/>
+
+  <!-- Wheels -->
+  <circle cx="170" cy="408" r="50" fill="none" stroke="#222" stroke-width="4"/>
+  <circle cx="170" cy="408" r="25" fill="none" stroke="#222" stroke-width="3"/>
+  <circle cx="170" cy="408" r="6"  fill="none" stroke="#222" stroke-width="2.5"/>
+  <circle cx="630" cy="408" r="50" fill="none" stroke="#222" stroke-width="4"/>
+  <circle cx="630" cy="408" r="25" fill="none" stroke="#222" stroke-width="3"/>
+  <circle cx="630" cy="408" r="6"  fill="none" stroke="#222" stroke-width="2.5"/>
+
+  <!-- Wheel arch details -->
+  <path d="M120 390 Q170 370 220 390" fill="none" stroke="#222" stroke-width="2.5"/>
+  <path d="M580 390 Q630 370 680 390" fill="none" stroke="#222" stroke-width="2.5"/>
+
+  <!-- Road markings -->
+  <line x1="0" y1="458" x2="800" y2="458" stroke="#222" stroke-width="2.5"/>
+  <line x1="100" y1="490" x2="200" y2="490" stroke="#222" stroke-width="2.5" stroke-dasharray="16 12"/>
+  <line x1="340" y1="490" x2="460" y2="490" stroke="#222" stroke-width="2.5" stroke-dasharray="16 12"/>
+  <line x1="600" y1="490" x2="700" y2="490" stroke="#222" stroke-width="2.5" stroke-dasharray="16 12"/>
+
+  <!-- Roadside flowers -->
+  <line x1="50"  y1="458" x2="50"  y2="432" stroke="#222" stroke-width="2"/>
+  <circle cx="50"  cy="427" r="7"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="41"  cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="59"  cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="50"  cy="416" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+
+  <line x1="750" y1="458" x2="750" y2="432" stroke="#222" stroke-width="2"/>
+  <circle cx="750" cy="427" r="7"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="741" cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="759" cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="750" cy="416" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+
+  <line x1="400" y1="458" x2="400" y2="432" stroke="#222" stroke-width="2"/>
+  <circle cx="400" cy="427" r="7"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="391" cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="409" cy="418" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+  <circle cx="400" cy="416" r="5"  fill="none" stroke="#222" stroke-width="2"/>
+</svg>

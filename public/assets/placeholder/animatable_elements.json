@@ -1,31 +1,12 @@
 {
   "version": 1,
-  "canvasWidth": 1024,
-  "canvasHeight": 768,
+  "canvasWidth": 800,
+  "canvasHeight": 560,
   "elements": [
-    {
-      "id": "dog-tail",
-      "x": 580,
-      "y": 380,
-      "w": 120,
-      "h": 80,
-      "animation": "wagTail"
-    },
-    {
-      "id": "cloud-left",
-      "x": 80,
-      "y": 60,
-      "w": 180,
-      "h": 90,
-      "animation": "float"
-    },
-    {
-      "id": "star-1",
-      "x": 900,
-      "y": 100,
-      "w": 50,
-      "h": 50,
-      "animation": "spin"
-    }
+    { "id": "sun",    "x": 622, "y": 22,  "w": 116, "h": 116, "animation": "spin"    },
+    { "id": "cloud1", "x": 48,  "y": 38,  "w": 134, "h": 58,  "animation": "float"   },
+    { "id": "cloud2", "x": 482, "y": 26,  "w": 118, "h": 44,  "animation": "float"   },
+    { "id": "tongue", "x": 337, "y": 308, "w": 22,  "h": 18,  "animation": "bounce"  },
+    { "id": "paw",    "x": 482, "y": 264, "w": 92,  "h": 48,  "animation": "wagTail" }
   ]
 }
