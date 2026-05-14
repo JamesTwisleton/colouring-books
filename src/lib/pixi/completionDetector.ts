@@ -1,5 +1,5 @@
 /**
- * Estimates what percentage of the canvas has been colored by sampling
+ * Estimates what percentage of the canvas has been coloured by sampling
  * the alpha channel of the drawing layer.
  *
  * Called on `pointerup` (not every frame) to avoid GPU readback overhead.
@@ -12,17 +12,17 @@ export function estimateFillPercentage(
   pixels: Uint8ClampedArray,
   sampleStep = 4
 ): number {
-  let colored = 0;
+  let coloured = 0;
   let total = 0;
 
   // Pixel data is packed RGBA — alpha is at index [i*4 + 3]
   for (let i = 0; i < pixels.length; i += 4 * sampleStep) {
     const alpha = pixels[i + 3];
-    if (alpha > 20) colored++;
+    if (alpha > 20) coloured++;
     total++;
   }
 
-  return total > 0 ? colored / total : 0;
+  return total > 0 ? coloured / total : 0;
 }
 
 /** Threshold above which a page is considered "completed" */

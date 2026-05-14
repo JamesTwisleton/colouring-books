@@ -3,8 +3,8 @@
 import dynamic from "next/dynamic";
 
 // ssr: false must live in a Client Component — Server Components cannot use it
-const ColoringCanvas = dynamic(
-  () => import("@/components/canvas/ColoringCanvas"),
+const ColouringCanvas = dynamic(
+  () => import("@/components/canvas/ColouringCanvas"),
   {
     ssr: false,
     loading: () => (
@@ -23,9 +23,9 @@ interface CanvasWrapperProps {
   animatableElementsUrl: string;
   bookId: string;
   pageId: string;
-  initialColoredImageUrl?: string;
+  initialColouredImageUrl?: string;
 }
 
 export default function CanvasWrapper(props: CanvasWrapperProps) {
-  return <ColoringCanvas {...props} />;
+  return <ColouringCanvas {...props} />;
 }

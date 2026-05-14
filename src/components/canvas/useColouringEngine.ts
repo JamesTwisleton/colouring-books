@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { AnimatableElementsConfig } from "@/types/coloring";
+import type { AnimatableElementsConfig } from "@/types/colouring";
 import {
   catmullRomToBezier,
   mirrorPoint,
@@ -17,12 +17,12 @@ interface PointerPoint extends Point {
   pressure: number;
 }
 
-export interface UseColoringEngineOptions {
+export interface UseColouringEngineOptions {
   containerRef: React.RefObject<HTMLDivElement | null>;
   outlineUrl: string;
   animatableElementsUrl: string;
-  initialColoredImageUrl?: string;
-  brushColor: string; // CSS hex e.g. "#FF6B6B"
+  initialColouredImageUrl?: string;
+  brushColour: string; // CSS hex e.g. "#FF6B6B"
   brushWidth: number; // base width in logical px
   brushOpacity: number; // 0–1
   onSave?: (blob: Blob, fillPercentage: number) => void;
@@ -47,24 +47,24 @@ function getCanvasPoint(
   };
 }
 
-export function useColoringEngine({
+export function useColouringEngine({
   containerRef,
   outlineUrl,
   animatableElementsUrl,
-  initialColoredImageUrl,
-  brushColor,
+  initialColouredImageUrl,
+  brushColour,
   brushWidth,
   brushOpacity,
   onSave,
   onComplete,
-}: UseColoringEngineOptions) {
-  const brushColorRef = useRef(brushColor);
+}: UseColouringEngineOptions) {
+  const brushColourRef = useRef(brushColour);
   const brushWidthRef = useRef(brushWidth);
   const brushOpacityRef = useRef(brushOpacity);
 
   useEffect(() => {
-    brushColorRef.current = brushColor;
-  }, [brushColor]);
+    brushColourRef.current = brushColour;
+  }, [brushColour]);
   useEffect(() => {
     brushWidthRef.current = brushWidth;
   }, [brushWidth]);
@@ -160,9 +160,9 @@ export function useColoringEngine({
         /* outline unavailable */
       }
 
-      if (initialColoredImageUrl) {
+      if (initialColouredImageUrl) {
         try {
-          const tex = await Assets.load(initialColoredImageUrl);
+          const tex = await Assets.load(initialColouredImageUrl);
           if (!cancelled) {
             const s = new Sprite(tex);
             s.width = W;
@@ -191,7 +191,7 @@ export function useColoringEngine({
         p2: PointerPoint,
         p3: Point
       ) {
-        const color = hexToPixi(brushColorRef.current);
+        const colour = hexToPixi(brushColourRef.current);
         const alpha = brushOpacityRef.current;
         const pressure = Math.pow(p1.pressure, 0.7);
         const width = brushWidthRef.current * (0.3 + pressure * 0.7);
@@ -208,19 +208,19 @@ export function useColoringEngine({
             seg.end.x,
             seg.end.y
           )
-          .stroke({ color, alpha, width, cap: "round", join: "round" });
+          .stroke({ color: colour, alpha, width, cap: "round", join: "round" });
 
         app.renderer.render({ container: drawGfx, target: drawRT, clear: false });
       }
 
       function drawDot(p: PointerPoint) {
-        const color = hexToPixi(brushColorRef.current);
+        const colour = hexToPixi(brushColourRef.current);
         const alpha = brushOpacityRef.current;
         const r =
           (brushWidthRef.current * (0.3 + Math.pow(p.pressure, 0.7) * 0.7)) /
           2;
         drawGfx.clear();
-        drawGfx.circle(p.x, p.y, r).fill({ color, alpha });
+        drawGfx.circle(p.x, p.y, r).fill({ color: colour, alpha });
         app.renderer.render({ container: drawGfx, target: drawRT, clear: false });
       }
 
@@ -230,11 +230,11 @@ export function useColoringEngine({
         if (n === 1) { drawDot(buf[0]); return; }
         if (n === 2) {
           drawGfx.clear();
-          const color = hexToPixi(brushColorRef.current);
+          const colour = hexToPixi(brushColourRef.current);
           const alpha = brushOpacityRef.current;
           const w = brushWidthRef.current * (0.3 + Math.pow(buf[0].pressure, 0.7) * 0.7);
           drawGfx.moveTo(buf[0].x, buf[0].y).lineTo(buf[1].x, buf[1].y)
-            .stroke({ color, alpha, width: w, cap: "round" });
+            .stroke({ color: colour, alpha, width: w, cap: "round" });
           app.renderer.render({ container: drawGfx, target: drawRT, clear: false });
           return;
         }

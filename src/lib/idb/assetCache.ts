@@ -1,5 +1,5 @@
 /**
- * IndexedDB asset cache for offline coloring book support.
+ * IndexedDB asset cache for offline colouring book support.
  *
  * Uses idb-keyval for simple key-value blob storage.
  * Keys are the original asset URLs; values are Blobs (images/JSON).
@@ -11,7 +11,7 @@
  */
 
 import { get, set, del, keys } from "idb-keyval";
-import type { PageConfig } from "@/types/coloring";
+import type { PageConfig } from "@/types/colouring";
 
 const STORE_PREFIX = "asset:";
 
@@ -63,10 +63,10 @@ export async function listCachedAssets(): Promise<string[]> {
 }
 
 /**
- * Save the child's colored page (Blob) to IndexedDB.
+ * Save the child's coloured page (Blob) to IndexedDB.
  * Key: `save:{childId}:{pageId}`
  */
-export async function saveColoredPage(
+export async function saveColouredPage(
   childId: string,
   pageId: string,
   blob: Blob
@@ -75,10 +75,10 @@ export async function saveColoredPage(
 }
 
 /**
- * Load the child's saved colored page from IndexedDB.
+ * Load the child's saved coloured page from IndexedDB.
  * Returns an Object URL (caller must revoke), or null if not saved.
  */
-export async function loadColoredPage(
+export async function loadColouredPage(
   childId: string,
   pageId: string
 ): Promise<string | null> {

@@ -59,7 +59,7 @@ body {
 
 /* ── Tablet-first layout helpers ─────────────────────────────────────────── */
 
-/* Lock to landscape on tablet-sized screens — coloring works best wide */
+/* Lock to landscape on tablet-sized screens — colouring works best wide */
 @media screen and (min-width: 768px) and (orientation: portrait) {
   /* Soft reminder, not a hard lock (CSS can't truly lock orientation) */
   body::before {

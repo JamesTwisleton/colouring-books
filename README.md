@@ -1,4 +1,4 @@
-# Coloring Books — Phygital Kids Coloring Platform
+# Colouring Books — Phygital Kids Colouring Platform
 
 A Progressive Web App for iPad and tablet that bridges digital colouring with physical Print-on-Demand books. Children colour bespoke illustrations using a high-fidelity freehand brush; when a page is complete the artwork animates as a reward. Parents can purchase printed editions of their child's unique colouring through a Stripe → Gelato pipeline.
 
@@ -65,39 +65,39 @@ A Progressive Web App for iPad and tablet that bridges digital colouring with ph
 │   │   ├── (app)/                 # Session-guarded layout
 │   │   │   ├── layout.tsx         # Auth check + QueryClientProvider
 │   │   │   ├── library/page.tsx
-│   │   │   └── coloring/[bookId]/[pageId]/page.tsx
+│   │   │   └── colouring/[bookId]/[pageId]/page.tsx
 │   │   └── api/auth/callback/route.ts  # Supabase PKCE exchange
 │   ├── components/
 │   │   ├── canvas/
-│   │   │   ├── CanvasWrapper.tsx      # "use client" shell for ssr:false dynamic import
-│   │   │   ├── ColoringCanvas.tsx     # Palette, brush toolbar, completion overlay
-│   │   │   └── useColoringEngine.ts   # PixiJS 4-layer engine, pointer events, GSAP
+│   │   │   ├── CanvasWrapper.tsx       # "use client" shell for ssr:false dynamic import
+│   │   │   ├── ColouringCanvas.tsx     # Palette, brush toolbar, completion overlay
+│   │   │   └── useColouringEngine.ts   # PixiJS 4-layer engine, pointer events, GSAP
 │   │   ├── library/
-│   │   │   ├── BookshelfView.tsx      # Horizontal scroll bookshelf
-│   │   │   └── BookCard.tsx           # Book tile with colour/download/print CTAs
+│   │   │   ├── BookshelfView.tsx       # Horizontal scroll bookshelf
+│   │   │   └── BookCard.tsx            # Book tile with colour/download/print CTAs
 │   │   ├── children/
 │   │   │   └── ChildProfileSelector.tsx  # Avatar selector + add-child modal
 │   │   └── ui/
-│   │       ├── Providers.tsx          # TanStack Query provider + IndexedDB persister
+│   │       ├── Providers.tsx           # TanStack Query provider + IndexedDB persister
 │   │       └── AddToHomeScreenModal.tsx  # iOS Safari A2HS onboarding
 │   ├── hooks/
-│   │   ├── useLibrary.ts             # Fetch parent's purchased books
-│   │   ├── useChildren.ts            # CRUD child profiles
-│   │   └── useSavedPage.ts           # Read/write per-child coloring state
+│   │   ├── useLibrary.ts              # Fetch parent's purchased books
+│   │   ├── useChildren.ts             # CRUD child profiles
+│   │   └── useSavedPage.ts            # Read/write per-child colouring state
 │   ├── lib/
 │   │   ├── supabase/
-│   │   │   ├── client.ts             # createBrowserClient factory
-│   │   │   └── server.ts             # createServerClient (async cookies)
+│   │   │   ├── client.ts              # createBrowserClient factory
+│   │   │   └── server.ts              # createServerClient (async cookies)
 │   │   ├── pixi/
-│   │   │   ├── catmullRom.ts         # Catmull-Rom → cubic Bézier conversion
-│   │   │   └── completionDetector.ts # Alpha-channel fill percentage sampler
+│   │   │   ├── catmullRom.ts          # Catmull-Rom → cubic Bézier conversion
+│   │   │   └── completionDetector.ts  # Alpha-channel fill percentage sampler
 │   │   ├── idb/
-│   │   │   └── assetCache.ts         # IndexedDB asset blob store
+│   │   │   └── assetCache.ts          # IndexedDB asset blob store
 │   │   └── query/
-│   │       └── queryClient.ts        # Singleton QueryClient + localStorage persister
+│   │       └── queryClient.ts         # Singleton QueryClient + localStorage persister
 │   └── types/
-│       ├── database.ts               # Hand-authored Supabase Database interface
-│       └── coloring.ts               # Domain types: AnimatableElement, PageConfig, etc.
+│       ├── database.ts                # Hand-authored Supabase Database interface
+│       └── colouring.ts              # Domain types: AnimatableElement, PageConfig, etc.
 └── supabase/
     ├── migrations/001_initial_schema.sql
     └── functions/
@@ -120,8 +120,8 @@ A Progressive Web App for iPad and tablet that bridges digital colouring with ph
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/<your-org>/coloring-books.git
-cd coloring-books
+git clone https://github.com/JamesTwisleton/colouring-books.git
+cd colouring-books
 npm install
 ```
 
@@ -194,7 +194,7 @@ npm run dev
 | `STRIPE_SECRET_KEY` | Stripe Dashboard → Developers → API Keys (keep secret) |
 | `STRIPE_WEBHOOK_SECRET` | Stripe Dashboard → Webhooks → signing secret |
 | `GELATO_API_KEY` | Gelato Dashboard → Account → API |
-| `GELATO_BOOK_SKU` | Gelato product catalog (default: `photobook_softcover_a4_portrait`) |
+| `GELATO_BOOK_SKU` | Gelato product catalogue (default: `photobook_softcover_a4_portrait`) |
 | `NEXT_PUBLIC_APP_URL` | Your deployed URL (e.g. `https://yourapp.vercel.app`) |
 
 Variables prefixed `NEXT_PUBLIC_` are exposed to the browser. All others are server-only and must **never** be committed.
@@ -282,10 +282,10 @@ Library and child data is cached via `createSyncStoragePersister` to `localStora
 |---|---|
 | `cacheBookAssets(pages)` | Downloads outline PNGs and animatable JSON blobs into IndexedDB |
 | `getCachedAsset(url)` | Returns an `Object URL` from IndexedDB, or `null` on miss |
-| `saveColoredPage(childId, pageId, blob)` | Persists the drawing PNG locally |
-| `loadColoredPage(childId, pageId)` | Retrieves the PNG blob; used to restore progress on re-open |
+| `saveColouredPage(childId, pageId, blob)` | Persists the drawing PNG locally |
+| `loadColouredPage(childId, pageId)` | Retrieves the PNG blob; used to restore progress on re-open |
 
-When the canvas loads, it checks `loadColoredPage` first. If a blob exists it is rendered into the `RenderTexture` before the child can draw. The async Supabase sync happens in the background.
+When the canvas loads, it checks `loadColouredPage` first. If a blob exists it is rendered into the `RenderTexture` before the child can draw. The async Supabase sync happens in the background.
 
 ---
 
@@ -308,7 +308,7 @@ POST /functions/v1/stripe-webhook
         │
         └─ type === "physical"
               │
-              ├─ Fetch child's colored_image_url rows from user_saved_pages
+              ├─ Fetch child's coloured_image_url rows from user_saved_pages
               └─ POST https://order.gelatoapis.com/v4/orders
 ```
 
@@ -324,7 +324,7 @@ Six tables with Row-Level Security enabled on all of them.
 profiles          (id, email, created_at)
   └── 1:1 with auth.users via trigger
 
-children          (id, parent_id→profiles, name, avatar_color, created_at)
+children          (id, parent_id→profiles, name, avatar_colour, created_at)
 
 books             (id, title, description, cover_image_url,
                    price_digital_cents, price_physical_cents,
@@ -337,7 +337,7 @@ user_libraries    (id, parent_id→profiles, book_id→books, purchased_at)
   UNIQUE (parent_id, book_id)
 
 user_saved_pages  (id, child_id→children, page_id→pages,
-                   colored_image_url, fill_percentage,
+                   coloured_image_url, fill_percentage,
                    completed_at, updated_at)
   UNIQUE (child_id, page_id)
 ```
@@ -347,7 +347,7 @@ user_saved_pages  (id, child_id→children, page_id→pages,
 - `books` / `pages`: readable by any authenticated user (the catalogue is public)
 - `user_saved_pages`: accessible if `auth.uid()` owns the row's `child_id`
 
-The migration also seeds one placeholder book (`Cockapoo's Big Adventure`) pointing to the local placeholder assets.
+The migration also seeds one placeholder book (*Cockapoo's Big Adventure*) pointing to the local placeholder assets.
 
 ---
 
@@ -376,7 +376,7 @@ The function authenticates the caller via the `Authorization: Bearer <jwt>` head
 Verifies the `stripe-signature` header before processing. Only handles `checkout.session.completed`.
 
 - **Digital:** upserts a row into `user_libraries` with `onConflict: "parent_id,book_id"` (idempotent)
-- **Physical:** fetches all `user_saved_pages` for the child, builds a Gelato order with `colored_image_url` entries as file attachments, and POSTs to `https://order.gelatoapis.com/v4/orders`
+- **Physical:** fetches all `user_saved_pages` for the child, builds a Gelato order with `coloured_image_url` entries as file attachments, and POSTs to `https://order.gelatoapis.com/v4/orders`
 
 ---
 
@@ -468,7 +468,7 @@ Next.js 16 renamed the middleware file convention. Auth session refresh and rout
 
 ### PixiJS SSR avoidance
 
-All PixiJS imports are dynamic (`await import("pixi.js")` inside `useEffect`). The `ColoringCanvas` component is wrapped by `CanvasWrapper.tsx`, which is a `"use client"` file — this is the only place that `dynamic(..., { ssr: false })` is legal under Next.js 16.
+All PixiJS imports are dynamic (`await import("pixi.js")` inside `useEffect`). The `ColouringCanvas` component is wrapped by `CanvasWrapper.tsx`, which is a `"use client"` file — this is the only place that `dynamic(..., { ssr: false })` is legal under Next.js 16.
 
 ### Supabase browser client instantiation
 

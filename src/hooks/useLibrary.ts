@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
-import type { BookWithPages } from "@/types/coloring";
+import type { BookWithPages } from "@/types/colouring";
 
 export function useLibrary(parentId: string | undefined) {
   return useQuery({

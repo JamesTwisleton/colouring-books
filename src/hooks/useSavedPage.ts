@@ -1,12 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
-import type { SavedPage } from "@/types/coloring";
+import type { SavedPage } from "@/types/colouring";
 
 function rowToSavedPage(row: {
   id: string;
   child_id: string;
   page_id: string;
-  colored_image_url: string | null;
+  coloured_image_url: string | null;
   fill_percentage: number;
   completed_at: string | null;
   updated_at: string;
@@ -15,7 +15,7 @@ function rowToSavedPage(row: {
     id: row.id,
     childId: row.child_id,
     pageId: row.page_id,
-    coloredImageUrl: row.colored_image_url,
+    colouredImageUrl: row.coloured_image_url,
     fillPercentage: row.fill_percentage,
     completedAt: row.completed_at,
     updatedAt: row.updated_at,
@@ -50,12 +50,12 @@ export function useUpsertSavedPage() {
     mutationFn: async ({
       childId,
       pageId,
-      coloredImageUrl,
+      colouredImageUrl,
       fillPercentage,
     }: {
       childId: string;
       pageId: string;
-      coloredImageUrl?: string;
+      colouredImageUrl?: string;
       fillPercentage: number;
     }) => {
       const supabase = createClient();
@@ -65,7 +65,7 @@ export function useUpsertSavedPage() {
           {
             child_id: childId,
             page_id: pageId,
-            colored_image_url: coloredImageUrl ?? null,
+            coloured_image_url: colouredImageUrl ?? null,
             fill_percentage: fillPercentage,
             completed_at:
               fillPercentage >= 0.85 ? new Date().toISOString() : null,

@@ -112,7 +112,7 @@ serve(async (req: Request) => {
                   : `${book.title} — Printed Book`,
               description:
                 type === "digital"
-                  ? "Digital coloring book"
+                  ? "Digital colouring book"
                   : "Printed & shipped to your door",
             },
           },

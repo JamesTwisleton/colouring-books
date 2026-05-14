@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { BookWithPages } from "@/types/coloring";
+import type { BookWithPages } from "@/types/colouring";
 
 interface BookCardProps {
   book: BookWithPages;
@@ -49,10 +49,10 @@ export default function BookCard({
           {/* Play button */}
           {canPlay ? (
             <Link
-              href={`/coloring/${book.id}/${firstPage.id}`}
+              href={`/colouring/${book.id}/${firstPage.id}`}
               className="block w-full text-center py-2 bg-[#ff6b6b] hover:bg-[#e04f4f] text-white rounded-xl text-xs font-semibold transition-colors"
             >
-              Color now
+              Colour now
             </Link>
           ) : (
             <button

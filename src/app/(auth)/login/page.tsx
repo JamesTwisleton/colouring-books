@@ -40,7 +40,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🎨</div>
-          <h1 className="text-3xl font-bold text-[#ff6b6b]">Coloring Books</h1>
+          <h1 className="text-3xl font-bold text-[#ff6b6b]">Colouring Books</h1>
           <p className="text-gray-500 mt-1 text-sm">
             Parent sign-in — your child&apos;s magical library awaits
           </p>

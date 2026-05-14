@@ -52,7 +52,7 @@ export default function AddToHomeScreenModal() {
                 Get the full experience
               </h3>
               <p className="text-xs text-gray-500 mt-0.5">
-                Add to your Home Screen for fullscreen coloring
+                Add to your Home Screen for fullscreen colouring
               </p>
             </div>
           </div>

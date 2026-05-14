@@ -1,19 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
-import type { ChildProfile } from "@/types/coloring";
+import type { ChildProfile } from "@/types/colouring";
 
 function rowToChildProfile(row: {
   id: string;
   parent_id: string;
   name: string;
-  avatar_color: string;
+  avatar_colour: string;
   created_at: string;
 }): ChildProfile {
   return {
     id: row.id,
     parentId: row.parent_id,
     name: row.name,
-    avatarColor: row.avatar_color,
+    avatarColour: row.avatar_colour,
     createdAt: row.created_at,
   };
 }
@@ -42,16 +42,16 @@ export function useAddChild() {
     mutationFn: async ({
       parentId,
       name,
-      avatarColor,
+      avatarColour,
     }: {
       parentId: string;
       name: string;
-      avatarColor: string;
+      avatarColour: string;
     }) => {
       const supabase = createClient();
       const { data, error } = await supabase
         .from("children")
-        .insert({ parent_id: parentId, name, avatar_color: avatarColor })
+        .insert({ parent_id: parentId, name, avatar_colour: avatarColour })
         .select()
         .single();
       if (error) throw error;

@@ -1,7 +1,7 @@
 {
-  "name": "Coloring Books",
-  "short_name": "ColorBooks",
-  "description": "Magical digital coloring books for kids — color, animate, and print!",
+  "name": "Colouring Books",
+  "short_name": "ColourBooks",
+  "description": "Magical digital colouring books for kids — colour, animate, and print!",
   "start_url": "/library",
   "scope": "/",
   "display": "standalone",

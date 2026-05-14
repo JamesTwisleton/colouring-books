@@ -57,7 +57,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
           <h1 className="text-2xl font-bold text-[#ff6b6b]">📚 My Books</h1>
           {activeChild && (
             <p className="text-sm text-gray-500 mt-0.5">
-              Coloring as{" "}
+              Colouring as{" "}
               <span className="font-semibold text-gray-700">
                 {activeChild.name}
               </span>
@@ -74,7 +74,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
             <>
               <div
                 className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                style={{ backgroundColor: activeChild.avatarColor }}
+                style={{ backgroundColor: activeChild.avatarColour }}
               >
                 {activeChild.name[0].toUpperCase()}
               </div>

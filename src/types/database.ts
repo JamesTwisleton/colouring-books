@@ -38,21 +38,21 @@ export interface Database {
           id: string;
           parent_id: string;
           name: string;
-          avatar_color: string;
+          avatar_colour: string;
           created_at: string;
         };
         Insert: {
           id?: string;
           parent_id: string;
           name: string;
-          avatar_color?: string;
+          avatar_colour?: string;
           created_at?: string;
         };
         Update: {
           id?: string;
           parent_id?: string;
           name?: string;
-          avatar_color?: string;
+          avatar_colour?: string;
           created_at?: string;
         };
         Relationships: [
@@ -174,7 +174,7 @@ export interface Database {
           id: string;
           child_id: string;
           page_id: string;
-          colored_image_url: string | null;
+          coloured_image_url: string | null;
           fill_percentage: number;
           completed_at: string | null;
           updated_at: string;
@@ -183,7 +183,7 @@ export interface Database {
           id?: string;
           child_id: string;
           page_id: string;
-          colored_image_url?: string | null;
+          coloured_image_url?: string | null;
           fill_percentage?: number;
           completed_at?: string | null;
           updated_at?: string;
@@ -192,7 +192,7 @@ export interface Database {
           id?: string;
           child_id?: string;
           page_id?: string;
-          colored_image_url?: string | null;
+          coloured_image_url?: string | null;
           fill_percentage?: number;
           completed_at?: string | null;
           updated_at?: string;

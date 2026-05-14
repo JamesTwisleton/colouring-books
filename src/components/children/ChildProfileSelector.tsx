@@ -19,7 +19,7 @@ export default function ChildProfileSelector({
   const [showForm, setShowForm] = useState(false);
   const [newName, setNewName] = useState("");
 
-  const AVATAR_COLORS = [
+  const AVATAR_COLOURS = [
     "#FF6B6B",
     "#4ECDC4",
     "#45B7D1",
@@ -29,7 +29,7 @@ export default function ChildProfileSelector({
     "#98D8C8",
     "#F7DC6F",
   ];
-  const [avatarColor, setAvatarColor] = useState(AVATAR_COLORS[0]);
+  const [avatarColour, setAvatarColour] = useState(AVATAR_COLOURS[0]);
 
   async function handleAddChild(e: React.FormEvent) {
     e.preventDefault();
@@ -37,7 +37,7 @@ export default function ChildProfileSelector({
     const child = await addChild.mutateAsync({
       parentId,
       name: newName.trim(),
-      avatarColor,
+      avatarColour,
     });
     setShowForm(false);
     setNewName("");
@@ -54,7 +54,7 @@ export default function ChildProfileSelector({
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-1">Who&apos;s coloring?</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-1">Who&apos;s colouring?</h2>
       <p className="text-gray-500 text-sm mb-5">Choose a profile to get started</p>
 
       <div className="flex flex-wrap gap-4">
@@ -70,7 +70,7 @@ export default function ChildProfileSelector({
           >
             <div
               className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-md"
-              style={{ backgroundColor: child.avatarColor }}
+              style={{ backgroundColor: child.avatarColour }}
             >
               {child.name[0].toUpperCase()}
             </div>
@@ -120,17 +120,17 @@ export default function ChildProfileSelector({
                   Pick a colour
                 </p>
                 <div className="flex gap-2 flex-wrap">
-                  {AVATAR_COLORS.map((c) => (
+                  {AVATAR_COLOURS.map((c) => (
                     <button
                       key={c}
                       type="button"
                       style={{ backgroundColor: c }}
                       className={`w-8 h-8 rounded-full transition-transform ${
-                        avatarColor === c
+                        avatarColour === c
                           ? "scale-125 ring-2 ring-gray-700"
                           : "hover:scale-110"
                       }`}
-                      onClick={() => setAvatarColor(c)}
+                      onClick={() => setAvatarColour(c)}
                     />
                   ))}
                 </div>

@@ -28,7 +28,7 @@ export interface PointerPoint {
 }
 
 export interface BrushOptions {
-  color: number;
+  color: number; // PixiJS colour integer (0xRRGGBB)
   baseWidth: number;
   opacity: number;
 }
@@ -37,7 +37,7 @@ export interface ChildProfile {
   id: string;
   parentId: string;
   name: string;
-  avatarColor: string;
+  avatarColour: string;
   createdAt: string;
 }
 
@@ -45,7 +45,7 @@ export interface SavedPage {
   id: string;
   childId: string;
   pageId: string;
-  coloredImageUrl: string | null;
+  colouredImageUrl: string | null;
   fillPercentage: number;
   completedAt: string | null;
   updatedAt: string;

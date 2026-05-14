@@ -10,14 +10,14 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Coloring Books",
+  title: "Colouring Books",
   description:
-    "Magical digital coloring books for kids — color, animate, and print!",
+    "Magical digital colouring books for kids — colour, animate, and print!",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "ColorBooks",
+    title: "ColourBooks",
   },
 };
 

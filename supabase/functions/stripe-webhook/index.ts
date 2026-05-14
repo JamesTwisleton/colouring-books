@@ -83,12 +83,12 @@ serve(async (req: Request) => {
       return new Response("Missing childId for physical order", { status: 400 });
     }
 
-    // Fetch the child's colored pages for all pages in this book
+    // Fetch the child's coloured pages for all pages in this book
     const { data: savedPages, error: spError } = await supabase
       .from("user_saved_pages")
-      .select("page_id, colored_image_url, pages(page_number, outline_url)")
+      .select("page_id, coloured_image_url, pages(page_number, outline_url)")
       .eq("child_id", childId)
-      .not("colored_image_url", "is", null)
+      .not("coloured_image_url", "is", null)
       .order("pages(page_number)", { ascending: true });
 
     if (spError) {
@@ -98,24 +98,24 @@ serve(async (req: Request) => {
 
     const appUrl = Deno.env.get("NEXT_PUBLIC_APP_URL") ?? "";
 
-    // Build Gelato file list: colored image first, then outline overlay
+    // Build Gelato file list: coloured image first, then outline overlay
     const files: { type: string; url: string }[] = (savedPages ?? []).flatMap(
       (sp) => {
         const files: { type: string; url: string }[] = [];
-        if (sp.colored_image_url) {
+        if (sp.coloured_image_url) {
           // Supabase storage path → public URL
-          const coloredUrl = sp.colored_image_url.startsWith("http")
-            ? sp.colored_image_url
-            : `${Deno.env.get("SUPABASE_URL")}/storage/v1/object/public/${sp.colored_image_url}`;
-          files.push({ type: "content", url: coloredUrl });
+          const colouredUrl = sp.coloured_image_url.startsWith("http")
+            ? sp.coloured_image_url
+            : `${Deno.env.get("SUPABASE_URL")}/storage/v1/object/public/${sp.coloured_image_url}`;
+          files.push({ type: "content", url: colouredUrl });
         }
         return files;
       }
     );
 
     if (files.length === 0) {
-      console.error("No colored pages found for child", childId);
-      return new Response("No colored pages", { status: 400 });
+      console.error("No coloured pages found for child", childId);
+      return new Response("No coloured pages", { status: 400 });
     }
 
     const shippingAddress = session.shipping_details?.address;

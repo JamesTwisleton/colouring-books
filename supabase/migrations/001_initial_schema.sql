@@ -1,5 +1,5 @@
 -- ============================================================
--- Coloring Books — initial schema
+-- Colouring Books — initial schema
 -- ============================================================
 
 -- Enable UUID generation
@@ -31,14 +31,14 @@ create trigger on_auth_user_created
 
 -- ─── Child profiles (multiple per parent) ───────────────────
 create table if not exists public.children (
-  id           uuid primary key default gen_random_uuid(),
-  parent_id    uuid not null references public.profiles(id) on delete cascade,
-  name         text not null,
-  avatar_color text not null default '#FF6B6B',
-  created_at   timestamptz not null default now()
+  id             uuid primary key default gen_random_uuid(),
+  parent_id      uuid not null references public.profiles(id) on delete cascade,
+  name           text not null,
+  avatar_colour  text not null default '#FF6B6B',
+  created_at     timestamptz not null default now()
 );
 
--- ─── Book catalog (admin-managed) ───────────────────────────
+-- ─── Book catalogue (admin-managed) ─────────────────────────
 create table if not exists public.books (
   id                   uuid primary key default gen_random_uuid(),
   title                text not null,
@@ -70,15 +70,15 @@ create table if not exists public.user_libraries (
   unique (parent_id, book_id)
 );
 
--- ─── Per-child coloring progress ────────────────────────────
+-- ─── Per-child colouring progress ───────────────────────────
 create table if not exists public.user_saved_pages (
-  id                uuid primary key default gen_random_uuid(),
-  child_id          uuid not null references public.children(id) on delete cascade,
-  page_id           uuid not null references public.pages(id) on delete cascade,
-  colored_image_url text,                        -- Supabase Storage path
-  fill_percentage   float not null default 0,
-  completed_at      timestamptz,                  -- null until fill >= 85 %
-  updated_at        timestamptz not null default now(),
+  id                  uuid primary key default gen_random_uuid(),
+  child_id            uuid not null references public.children(id) on delete cascade,
+  page_id             uuid not null references public.pages(id) on delete cascade,
+  coloured_image_url  text,                        -- Supabase Storage path
+  fill_percentage     float not null default 0,
+  completed_at        timestamptz,                  -- null until fill >= 85 %
+  updated_at          timestamptz not null default now(),
   unique (child_id, page_id)
 );
 

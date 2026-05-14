@@ -5,7 +5,7 @@ interface PageProps {
   params: Promise<{ bookId: string; pageId: string }>;
 }
 
-export default async function ColoringPage({ params }: PageProps) {
+export default async function ColouringPage({ params }: PageProps) {
   const { bookId, pageId } = await params;
 
   if (!bookId || !pageId) notFound();
