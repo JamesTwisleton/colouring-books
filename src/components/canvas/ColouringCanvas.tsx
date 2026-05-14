@@ -19,22 +19,53 @@ interface ColouringCanvasProps {
 }
 
 const PALETTE = [
-  "#2C3E50",
-  "#E74C3C",
-  "#E67E22",
-  "#F1C40F",
-  "#27AE60",
-  "#2980B9",
-  "#8E44AD",
-  "#E91E8C",
-  "#795548",
-  "#FFFFFF",
+  // Neutrals
+  "#1a1a1a", "#555555", "#999999", "#cccccc", "#FFFFFF",
+  // Reds & pinks
+  "#E74C3C", "#FF6B6B", "#FF8FAB", "#E91E8C", "#C2185B",
+  // Oranges & yellows
+  "#E67E22", "#FF9800", "#FFD54F", "#F1C40F", "#FFF176",
+  // Greens
+  "#27AE60", "#66BB6A", "#A5D6A7", "#26C6DA", "#00ACC1",
+  // Blues & purples
+  "#2980B9", "#42A5F5", "#90CAF9", "#8E44AD", "#CE93D8",
+  // Browns & skin tones
+  "#795548", "#BCAAA4", "#FFCCBC", "#FFB74D",
 ];
 
 const BRUSH_SIZES = [4, 8, 14, 22, 32];
 
-// Percentage of canvas that must be coloured before the next page unlocks
 const NEXT_PAGE_THRESHOLD = 0.6;
+
+function FillRing({ pct }: { pct: number }) {
+  const r = 17;
+  const circ = 2 * Math.PI * r;
+  const filled = Math.min(pct, 100);
+  const dash = (filled / 100) * circ;
+  return (
+    <div className="flex flex-col items-center justify-center shrink-0 w-14">
+      <svg width="42" height="42" viewBox="0 0 42 42">
+        {/* Track */}
+        <circle cx="21" cy="21" r={r} fill="none" stroke="#f3f4f6" strokeWidth="4" />
+        {/* Fill arc — starts at top (offset by ¼ circumference) */}
+        <circle
+          cx="21" cy="21" r={r}
+          fill="none"
+          stroke={pct >= 100 ? "#27AE60" : "#ff6b6b"}
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeDasharray={`${dash} ${circ - dash}`}
+          strokeDashoffset={circ / 4}
+          style={{ transition: "stroke-dasharray 0.4s ease, stroke 0.4s ease" }}
+        />
+        <text x="21" y="25" textAnchor="middle" fontSize="9" fontWeight="700" fill="#374151">
+          {filled}%
+        </text>
+      </svg>
+      <span className="text-[10px] text-gray-400 leading-none mt-0.5">coloured</span>
+    </div>
+  );
+}
 
 export default function ColouringCanvas({
   outlineUrl,
@@ -51,7 +82,7 @@ export default function ColouringCanvas({
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const [brushColour, setBrushColour] = useState(PALETTE[0]);
+  const [brushColour, setBrushColour] = useState(PALETTE[5]); // red as default
   const [brushWidth, setBrushWidth] = useState(BRUSH_SIZES[1]);
   const [brushOpacity] = useState(1.0);
   const [completed, setCompleted] = useState(false);
@@ -73,7 +104,6 @@ export default function ColouringCanvas({
     onFillUpdate: setFill,
   });
 
-  // silence unused warning — pageId is in the URL but the engine doesn't need it
   void pageId;
 
   return (
@@ -122,30 +152,23 @@ export default function ColouringCanvas({
         </div>
       </div>
 
-      {/* Fill progress bar — shows while next page is locked */}
-      {nextPageId && fill < NEXT_PAGE_THRESHOLD && (
-        <div className="h-1 bg-gray-100 shrink-0">
-          <div
-            className="h-full bg-[#ff6b6b] transition-all duration-500"
-            style={{ width: `${(fill / NEXT_PAGE_THRESHOLD) * 100}%` }}
-          />
-        </div>
-      )}
-
-      {/* Canvas area — touch-action:none prevents scroll/zoom during drawing */}
+      {/* Canvas area */}
       <div
         ref={containerRef}
         className="flex-1 canvas-container overflow-hidden"
         style={{ touchAction: "none", userSelect: "none" }}
       />
 
-      {/* ─── Brush toolbar ─── */}
-      <div className="h-16 border-t border-gray-100 bg-white flex items-center gap-4 px-5 shrink-0">
-        <div className="flex items-center gap-1.5">
+      {/* ─── Toolbar ─── */}
+      <div className="border-t border-gray-100 bg-white flex items-center gap-3 px-4 py-2 shrink-0">
+
+        {/* Colour palette — scrollable */}
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none flex-1 py-1">
           {PALETTE.map((colour) => (
             <button
               key={colour}
               title={colour}
+              onClick={() => setBrushColour(colour)}
               style={{
                 backgroundColor: colour,
                 border:
@@ -154,31 +177,38 @@ export default function ColouringCanvas({
                     : colour === "#FFFFFF"
                     ? "2px solid #d1d5db"
                     : "2px solid transparent",
+                flexShrink: 0,
               }}
               className="w-7 h-7 rounded-full transition-transform active:scale-90"
-              onClick={() => setBrushColour(colour)}
             />
           ))}
         </div>
 
         <div className="w-px h-8 bg-gray-200 shrink-0" />
 
-        <div className="flex items-center gap-2">
+        {/* Brush sizes */}
+        <div className="flex items-center gap-2 shrink-0">
           {BRUSH_SIZES.map((size) => (
             <button
               key={size}
               title={`${size}px`}
+              onClick={() => setBrushWidth(size)}
               style={{
                 width: Math.max(10, size * 0.6),
                 height: Math.max(10, size * 0.6),
                 backgroundColor: brushWidth === size ? brushColour : "#9ca3af",
                 border: brushWidth === size ? "2px solid #374151" : "none",
+                flexShrink: 0,
               }}
-              className="rounded-full transition-transform active:scale-90 shrink-0"
-              onClick={() => setBrushWidth(size)}
+              className="rounded-full transition-transform active:scale-90"
             />
           ))}
         </div>
+
+        <div className="w-px h-8 bg-gray-200 shrink-0" />
+
+        {/* Fill percentage ring */}
+        <FillRing pct={fillPct} />
       </div>
 
       {/* Completion overlay */}
@@ -197,9 +227,7 @@ export default function ColouringCanvas({
             </p>
             {nextPageId && (
               <button
-                onClick={() =>
-                  router.push(`/colouring/${bookId}/${nextPageId}`)
-                }
+                onClick={() => router.push(`/colouring/${bookId}/${nextPageId}`)}
                 className="px-6 py-2.5 bg-[#ff6b6b] text-white rounded-xl text-sm font-semibold hover:bg-[#e04f4f] transition-colors"
               >
                 Next page →
