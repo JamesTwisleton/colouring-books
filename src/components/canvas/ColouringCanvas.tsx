@@ -159,11 +159,14 @@ export default function ColouringCanvas({
         style={{ touchAction: "none", userSelect: "none" }}
       />
 
-      {/* ─── Toolbar ─── */}
-      <div className="border-t border-gray-100 bg-white flex items-center gap-3 px-4 py-2 shrink-0">
+      {/* ─── Toolbar ───────────────────────────────────────────────────────
+           Mobile  (<sm): two rows — palette full-width, then brush + ring.
+           Tablet+ (≥sm): single row — palette scrolls, brush + ring to the right.
+      ─────────────────────────────────────────────────────────────────────── */}
+      <div className="border-t border-gray-100 bg-white shrink-0 flex flex-col sm:flex-row sm:items-center sm:gap-3 sm:px-4 pb-safe-min-2">
 
-        {/* Colour palette — scrollable */}
-        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none flex-1 py-1">
+        {/* Row 1 / left: colour palette */}
+        <div className="flex items-center gap-2 overflow-x-auto scrollbar-none flex-1 px-4 sm:px-0 py-2.5">
           {PALETTE.map((colour) => (
             <button
               key={colour}
@@ -179,36 +182,36 @@ export default function ColouringCanvas({
                     : "2px solid transparent",
                 flexShrink: 0,
               }}
-              className="w-7 h-7 rounded-full transition-transform active:scale-90"
+              className="w-8 h-8 rounded-full transition-transform active:scale-90"
             />
           ))}
         </div>
 
-        <div className="w-px h-8 bg-gray-200 shrink-0" />
+        {/* Divider — row layout only */}
+        <div className="hidden sm:block w-px h-8 bg-gray-200 shrink-0" />
 
-        {/* Brush sizes */}
-        <div className="flex items-center gap-2 shrink-0">
-          {BRUSH_SIZES.map((size) => (
-            <button
-              key={size}
-              title={`${size}px`}
-              onClick={() => setBrushWidth(size)}
-              style={{
-                width: Math.max(10, size * 0.6),
-                height: Math.max(10, size * 0.6),
-                backgroundColor: brushWidth === size ? brushColour : "#9ca3af",
-                border: brushWidth === size ? "2px solid #374151" : "none",
-                flexShrink: 0,
-              }}
-              className="rounded-full transition-transform active:scale-90"
-            />
-          ))}
+        {/* Row 2 / right: brush sizes + ring */}
+        <div className="flex items-center gap-3 px-4 sm:px-0 pb-2 sm:pb-0 shrink-0">
+          <div className="flex items-center gap-2">
+            {BRUSH_SIZES.map((size) => (
+              <button
+                key={size}
+                title={`${size}px`}
+                onClick={() => setBrushWidth(size)}
+                style={{
+                  width: Math.max(12, size * 0.7),
+                  height: Math.max(12, size * 0.7),
+                  backgroundColor: brushWidth === size ? brushColour : "#9ca3af",
+                  border: brushWidth === size ? "2px solid #374151" : "none",
+                  flexShrink: 0,
+                }}
+                className="rounded-full transition-transform active:scale-90"
+              />
+            ))}
+          </div>
+          <div className="w-px h-8 bg-gray-200 shrink-0" />
+          <FillRing pct={fillPct} />
         </div>
-
-        <div className="w-px h-8 bg-gray-200 shrink-0" />
-
-        {/* Fill percentage ring */}
-        <FillRing pct={fillPct} />
       </div>
 
       {/* Completion overlay */}

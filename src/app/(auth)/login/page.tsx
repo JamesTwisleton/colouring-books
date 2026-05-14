@@ -36,7 +36,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fff9f0] flex items-center justify-center p-4">
+    <div className="min-h-dvh bg-[#fff9f0] flex items-center justify-center p-4 pt-safe pb-safe overflow-y-auto">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🎨</div>
@@ -46,7 +46,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-orange-100 p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-orange-100 p-6 sm:p-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-6">
             Sign in to your account
           </h2>

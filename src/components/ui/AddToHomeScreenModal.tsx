@@ -33,8 +33,8 @@ export default function AddToHomeScreenModal() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 bg-black/30">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden mb-4">
+    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 pb-safe-min-4 bg-black/30">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
         {/* Tip arrow pointing down to Safari toolbar */}
         <div className="relative px-6 pt-6 pb-5">
           <button

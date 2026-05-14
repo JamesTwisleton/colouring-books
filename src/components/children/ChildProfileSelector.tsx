@@ -94,7 +94,7 @@ export default function ChildProfileSelector({
 
       {/* Add child modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4 pt-safe pb-safe">
           <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
             <h3 className="text-lg font-bold text-gray-800 mb-4">
               Add a child profile
@@ -125,7 +125,7 @@ export default function ChildProfileSelector({
                       key={c}
                       type="button"
                       style={{ backgroundColor: c }}
-                      className={`w-8 h-8 rounded-full transition-transform ${
+                      className={`w-10 h-10 rounded-full transition-transform ${
                         avatarColour === c
                           ? "scale-125 ring-2 ring-gray-700"
                           : "hover:scale-110"

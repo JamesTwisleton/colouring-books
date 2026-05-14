@@ -5,7 +5,7 @@
   "start_url": "/library",
   "scope": "/",
   "display": "standalone",
-  "orientation": "landscape",
+  "orientation": "any",
   "background_color": "#FFF9F0",
   "theme_color": "#FF6B6B",
   "categories": ["education", "kids"],

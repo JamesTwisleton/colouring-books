@@ -99,23 +99,23 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
       )}
 
       {/* Book shelf */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-6 pb-safe-min-4">
         {isLoading && (
-          <div className="flex items-center justify-center h-40">
+          <div className="flex items-center justify-center py-16">
             <div className="text-gray-400 text-sm">Loading your library…</div>
           </div>
         )}
 
         {isError && (
-          <div className="flex items-center justify-center h-40">
-            <div className="text-red-400 text-sm">
+          <div className="flex items-center justify-center py-16">
+            <div className="text-red-400 text-sm text-center max-w-xs">
               Couldn&apos;t load your library. Check your connection.
             </div>
           </div>
         )}
 
         {!isLoading && !isError && books.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-40 gap-3">
+          <div className="flex flex-col items-center justify-center py-16 gap-3">
             <div className="text-4xl">🎨</div>
             <p className="text-gray-500 text-sm text-center max-w-xs">
               Your library is empty. Books will appear here once they&apos;re added.

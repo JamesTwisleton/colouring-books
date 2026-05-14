@@ -24,7 +24,7 @@ export default async function AppLayout({
 
   return (
     <Providers>
-      <div className="h-screen flex flex-col bg-[#fff9f0] overflow-hidden">
+      <div className="h-dvh flex flex-col bg-[#fff9f0] overflow-hidden pt-safe pl-safe pr-safe">
         {children}
       </div>
     </Providers>
