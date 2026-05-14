@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLibrary } from "@/hooks/useLibrary";
 import { useChildren } from "@/hooks/useChildren";
 import { cacheBookAssets } from "@/lib/idb/assetCache";
@@ -18,17 +18,21 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
     if (typeof window === "undefined") return null;
     return localStorage.getItem(ACTIVE_CHILD_KEY);
   });
-  const [showProfiles, setShowProfiles] = useState(false);
+  // null = not yet overridden by the user; derive from data instead
+  const [showProfilesOverride, setShowProfilesOverride] = useState<boolean | null>(null);
 
   const { data: books = [], isLoading, isError } = useLibrary(parentId);
   const { data: children = [] } = useChildren(parentId);
 
   const activeChild = children.find((c) => c.id === activeChildId) ?? null;
 
+  // Auto-show when children load but none is selected; user can toggle to override
+  const showProfiles = showProfilesOverride ?? (!activeChildId && children.length > 0);
+
   function handleSelectChild(childId: string) {
     setActiveChildId(childId);
     localStorage.setItem(ACTIVE_CHILD_KEY, childId);
-    setShowProfiles(false);
+    setShowProfilesOverride(false);
   }
 
   async function handleDownload(bookId: string) {
@@ -41,13 +45,6 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
       alert("Download failed. Please check your connection.");
     }
   }
-
-  // Auto-show profile selector when no child is active and profiles exist
-  useEffect(() => {
-    if (!activeChildId && children.length > 0) {
-      setShowProfiles(true);
-    }
-  }, [activeChildId, children.length]);
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -67,7 +64,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
 
         {/* Child switcher */}
         <button
-          onClick={() => setShowProfiles(!showProfiles)}
+          onClick={() => setShowProfilesOverride(!showProfiles)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 transition-colors"
         >
           {activeChild ? (

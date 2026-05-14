@@ -96,8 +96,6 @@ serve(async (req: Request) => {
       return new Response("DB error", { status: 500 });
     }
 
-    const appUrl = Deno.env.get("NEXT_PUBLIC_APP_URL") ?? "";
-
     // Build Gelato file list: coloured image first, then outline overlay
     const files: { type: string; url: string }[] = (savedPages ?? []).flatMap(
       (sp) => {
