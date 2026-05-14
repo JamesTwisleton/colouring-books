@@ -121,7 +121,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
           <div className="flex flex-col items-center justify-center h-40 gap-3">
             <div className="text-4xl">🎨</div>
             <p className="text-gray-500 text-sm text-center max-w-xs">
-              Your library is empty. Books you purchase will appear here.
+              Your library is empty. Books will appear here once they&apos;re added.
             </p>
           </div>
         )}

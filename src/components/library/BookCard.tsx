@@ -7,11 +7,6 @@ interface BookCardProps {
   onDownload?: () => void;
 }
 
-function formatCents(cents: number): string {
-  if (cents === 0) return "Free";
-  return `£${(cents / 100).toFixed(2)}`;
-}
-
 export default function BookCard({
   book,
   activeChildId,
@@ -73,10 +68,13 @@ export default function BookCard({
             </button>
           )}
 
-          {/* Print price */}
-          <p className="text-center text-xs text-gray-400">
-            Print: {formatCents(book.pricePhysicalCents)}
-          </p>
+          {/* Print book — not yet available */}
+          <button
+            disabled
+            className="w-full py-1.5 bg-gray-50 text-gray-300 rounded-xl text-xs font-medium cursor-not-allowed"
+          >
+            Print book — coming soon
+          </button>
         </div>
       </div>
     </div>
