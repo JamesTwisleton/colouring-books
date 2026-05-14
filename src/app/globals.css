@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-nunito);
+
+  /* Brand palette */
+  --color-coral: #ff6b6b;
+  --color-coral-light: #ff9999;
+  --color-coral-dark: #e04f4f;
+  --color-cream: #fff9f0;
+  --color-amber-soft: #fef3c7;
+}
+
+/* ── Base reset for full-bleed tablet layout ─────────────────────────────── */
+
+html,
+body {
+  height: 100%;
+  /* Prevent bounce/scroll outside the drawing canvas */
+  overflow: hidden;
+  overscroll-behavior: none;
+  /* Prevent iOS tap-highlight flash */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure standalone PWA fills the entire viewport on iOS */
+@media (display-mode: standalone) {
+  html,
+  body {
+    height: 100dvh;
+  }
+}
+
+/* ── Canvas wrapper ──────────────────────────────────────────────────────── */
+
+/* Applied to the PixiJS mount div — prevents ALL browser touch gestures
+   so pointer events reach the canvas exclusively. */
+.canvas-container {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Prevent cursor blinking on iPad when pencil is near screen */
+  cursor: crosshair;
+}
+
+/* ── Smooth horizontal scroll (library bookshelf) ────────────────────────── */
+
+.scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Tablet-first layout helpers ─────────────────────────────────────────── */
+
+/* Lock to landscape on tablet-sized screens — coloring works best wide */
+@media screen and (min-width: 768px) and (orientation: portrait) {
+  /* Soft reminder, not a hard lock (CSS can't truly lock orientation) */
+  body::before {
+    content: "Please rotate your device to landscape for the best experience 🎨";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #fff9f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ff6b6b;
+    text-align: center;
+    padding: 2rem;
+  }
+}
+
+/* In landscape tablet mode, use the full device height including safe areas */
+@media screen and (min-width: 768px) and (orientation: landscape) {
+  .canvas-container {
+    height: 100%;
+    /* Reserve safe-area on notched iPads */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ── Misc utility overrides ───────────────────────────────────────────────── */
+
+/* Prevent font inflation on mobile Safari */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Smooth focus rings that look good on tablet */
+:focus-visible {
+  outline: 2px solid #ff6b6b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

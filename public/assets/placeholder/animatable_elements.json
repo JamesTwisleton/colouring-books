@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "canvasWidth": 1024,
+  "canvasHeight": 768,
+  "elements": [
+    {
+      "id": "dog-tail",
+      "x": 580,
+      "y": 380,
+      "w": 120,
+      "h": 80,
+      "animation": "wagTail"
+    },
+    {
+      "id": "cloud-left",
+      "x": 80,
+      "y": 60,
+      "w": 180,
+      "h": 90,
+      "animation": "float"
+    },
+    {
+      "id": "star-1",
+      "x": 900,
+      "y": 100,
+      "w": 50,
+      "h": 50,
+      "animation": "spin"
+    }
+  ]
+}
