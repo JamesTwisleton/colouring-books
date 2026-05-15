@@ -460,7 +460,7 @@ export default function ElementRegionEditor({
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
               mode === m
                 ? "bg-[#ff6b6b] text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
             {label}
@@ -473,7 +473,7 @@ export default function ElementRegionEditor({
           title="Undo (Ctrl+Z)"
           onClick={undo}
           disabled={!canUndo}
-          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-30 transition-colors"
+          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30 transition-colors"
         >
           ↩
         </button>
@@ -481,13 +481,13 @@ export default function ElementRegionEditor({
           title="Redo (Ctrl+Shift+Z)"
           onClick={redo}
           disabled={!canRedo}
-          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-30 transition-colors"
+          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30 transition-colors"
         >
           ↪
         </button>
 
         <span className="flex-1" />
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-400 dark:text-gray-500">
           {regions.length} {regions.length === 1 ? "region" : "regions"}
         </span>
       </div>
@@ -541,9 +541,9 @@ export default function ElementRegionEditor({
 
       {/* Selected region properties */}
       {selected && (
-        <div className="bg-orange-50/60 border border-orange-100 rounded-xl p-3 space-y-3">
+        <div className="bg-orange-50/60 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/50 rounded-xl p-3 space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-xs font-bold text-gray-700 uppercase tracking-wide">
+            <p className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
               {selected.type === "text" ? "Text region" : "Animated region"}
             </p>
             <button
@@ -562,12 +562,12 @@ export default function ElementRegionEditor({
               type="text"
               value={selected.label}
               onChange={(e) => updateSelected({ label: e.target.value })}
-              className="w-full px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#ff6b6b]/40"
+              className="w-full px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#ff6b6b]/40"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
               Animation on completion
             </label>
             <select
@@ -575,7 +575,7 @@ export default function ElementRegionEditor({
               onChange={(e) =>
                 updateSelected({ animation: e.target.value as RegionAnimation })
               }
-              className="w-full px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#ff6b6b]/40 bg-white"
+              className="w-full px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#ff6b6b]/40 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             >
               {ANIMATION_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -623,7 +623,7 @@ export default function ElementRegionEditor({
                 {r.type === "text" ? "T" : ""}
               </span>
               <span className="flex-1 truncate">{r.label || r.id}</span>
-              <span className="text-xs text-gray-400">{r.animation}</span>
+              <span className="text-xs text-gray-400 dark:text-gray-500">{r.animation}</span>
             </button>
           ))}
         </div>
@@ -637,7 +637,7 @@ export default function ElementRegionEditor({
         {saving ? "Saving…" : "Save animated elements"}
       </button>
 
-      <p className="text-xs text-gray-400 text-center leading-relaxed">
+      <p className="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
         Mark regions that should animate when the child finishes colouring. Skip if no animations needed.
       </p>
     </div>

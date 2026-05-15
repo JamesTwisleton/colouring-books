@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import AddToHomeScreenModal from "@/components/ui/AddToHomeScreenModal";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -36,10 +37,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${nunito.variable} h-full`}>
+    <html lang="en" className={`${nunito.variable} h-full`} suppressHydrationWarning>
       <body className="h-full font-sans antialiased">
-        {children}
-        <AddToHomeScreenModal />
+        <ThemeProvider>
+          {children}
+          <AddToHomeScreenModal />
+        </ThemeProvider>
       </body>
     </html>
   );

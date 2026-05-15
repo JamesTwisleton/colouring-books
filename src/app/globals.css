@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable dark mode via .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --font-sans: var(--font-nunito);
 

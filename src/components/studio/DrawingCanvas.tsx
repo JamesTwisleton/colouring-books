@@ -263,7 +263,7 @@ export default function DrawingCanvas({
             className={`px-2.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
               tool === t
                 ? "bg-[#ff6b6b] text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
             {icon}
@@ -276,7 +276,7 @@ export default function DrawingCanvas({
           title="Undo (Ctrl+Z)"
           onClick={undo}
           disabled={!canUndo}
-          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-30 transition-colors"
+          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30 transition-colors"
         >
           ↩
         </button>
@@ -284,14 +284,14 @@ export default function DrawingCanvas({
           title="Redo (Ctrl+Shift+Z)"
           onClick={redo}
           disabled={!canRedo}
-          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-30 transition-colors"
+          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-30 transition-colors"
         >
           ↪
         </button>
         <button
           title="Clear canvas"
           onClick={handleClear}
-          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+          className="px-2.5 py-1.5 rounded-lg text-sm bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         >
           ✕ Clear
         </button>
@@ -349,7 +349,7 @@ export default function DrawingCanvas({
       </div>
 
       {/* ─── Canvas ─── */}
-      <div className="relative rounded-xl border border-gray-200 overflow-hidden bg-white" style={{ lineHeight: 0 }}>
+      <div className="relative rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden bg-white" style={{ lineHeight: 0 }}>
         <canvas
           ref={canvasRef}
           className="w-full block"
@@ -391,7 +391,7 @@ export default function DrawingCanvas({
         {saving ? "Saving illustration…" : "Save illustration"}
       </button>
 
-      <p className="text-xs text-gray-400 text-center leading-relaxed">
+      <p className="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
         Draw outlines on the white canvas. Children will colour on top of your drawing.
       </p>
     </div>

@@ -52,7 +52,7 @@ export default function IllustrationUploader({
   return (
     <div className="flex flex-col gap-3">
       {/* Tab switcher */}
-      <div className="flex rounded-xl border border-gray-200 overflow-hidden text-sm font-medium">
+      <div className="flex rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden text-sm font-medium">
         {(["upload", "draw"] as const).map((t) => (
           <button
             key={t}
@@ -60,7 +60,7 @@ export default function IllustrationUploader({
             className={`flex-1 py-2 transition-colors capitalize ${
               tab === t
                 ? "bg-[#ff6b6b] text-white"
-                : "bg-white text-gray-500 hover:bg-gray-50"
+                : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
             }`}
           >
             {t === "upload" ? "⬆ Upload" : "✏️ Draw"}
@@ -73,8 +73,8 @@ export default function IllustrationUploader({
           <div
             className={`relative border-2 border-dashed rounded-2xl transition-colors ${
               dragging
-                ? "border-[#ff6b6b] bg-orange-50"
-                : "border-gray-200 hover:border-gray-300"
+                ? "border-[#ff6b6b] bg-orange-50 dark:bg-orange-950/30"
+                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
             } ${currentUrl ? "p-2" : "p-8"}`}
             onDragOver={(e) => {
               e.preventDefault();
@@ -106,10 +106,10 @@ export default function IllustrationUploader({
               <div className="flex flex-col items-center gap-3 text-center">
                 <div className="text-4xl">🖼️</div>
                 <div>
-                  <p className="text-sm font-medium text-gray-700">
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Drop your illustration here
                   </p>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                     PNG, SVG, JPEG or WebP — max 10 MB
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export default function IllustrationUploader({
             </p>
           )}
 
-          <p className="text-xs text-gray-400 text-center leading-relaxed">
+          <p className="text-xs text-gray-400 dark:text-gray-500 text-center leading-relaxed">
             Tip: use a PNG with a white or transparent background so children colour between the lines.
           </p>
 

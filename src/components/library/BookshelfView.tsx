@@ -7,6 +7,8 @@ import { useChildren } from "@/hooks/useChildren";
 import { cacheBookAssets } from "@/lib/idb/assetCache";
 import BookCard from "./BookCard";
 import ChildProfileSelector from "@/components/children/ChildProfileSelector";
+import LogoutButton from "@/components/ui/LogoutButton";
+import { useTheme } from "@/components/ui/ThemeProvider";
 
 interface BookshelfViewProps {
   parentId: string;
@@ -15,6 +17,7 @@ interface BookshelfViewProps {
 const ACTIVE_CHILD_KEY = "cb:activeChildId";
 
 export default function BookshelfView({ parentId }: BookshelfViewProps) {
+  const { theme, toggle: toggleTheme } = useTheme();
   const [activeChildId, setActiveChildId] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
     return localStorage.getItem(ACTIVE_CHILD_KEY);
@@ -50,56 +53,73 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header bar */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-orange-50">
+      <div className="px-5 py-3 flex items-center justify-between border-b border-orange-50 dark:border-gray-800 shrink-0">
         <div>
           <h1 className="text-2xl font-bold text-[#ff6b6b]">My Books</h1>
           {activeChild && (
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
               Colouring as{" "}
-              <span className="font-semibold text-gray-700">
+              <span className="font-semibold text-gray-700 dark:text-gray-200">
                 {activeChild.name}
               </span>
             </p>
           )}
         </div>
 
-        {/* Studio link + child switcher */}
         <div className="flex items-center gap-2">
-        <Link
-          href="/studio"
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 transition-colors text-sm font-medium text-gray-600"
-        >
-          ✏️ Studio
-        </Link>
-        {/* Child switcher */}
-        <button
-          onClick={() => setShowProfilesOverride(!showProfiles)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 transition-colors"
-        >
-          {activeChild ? (
-            <>
-              <div
-                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                style={{ backgroundColor: activeChild.avatarColour }}
-              >
-                {activeChild.name[0].toUpperCase()}
-              </div>
-              <span className="text-sm font-medium text-gray-700">
-                {activeChild.name}
+          <Link
+            href="/studio"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors text-sm font-medium text-gray-600 dark:text-gray-300"
+          >
+            ✏️ Studio
+          </Link>
+
+          {/* Child switcher */}
+          <button
+            onClick={() => setShowProfilesOverride(!showProfiles)}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors"
+          >
+            {activeChild ? (
+              <>
+                <div
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0"
+                  style={{ backgroundColor: activeChild.avatarColour }}
+                >
+                  {activeChild.name[0].toUpperCase()}
+                </div>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 hidden sm:block">
+                  {activeChild.name}
+                </span>
+              </>
+            ) : (
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Choose child
               </span>
-            </>
-          ) : (
-            <span className="text-sm font-medium text-gray-500">
-              Choose child
-            </span>
-          )}
-        </button>
+            )}
+          </button>
+
+          {/* Dark mode toggle */}
+          <button
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-orange-50 dark:bg-gray-800 hover:bg-orange-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            {theme === "dark" ? "☀️" : "🌙"}
+          </button>
+
+          {/* Log out */}
+          <LogoutButton
+            title="Log out"
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-orange-50 dark:bg-gray-800 hover:bg-red-50 dark:hover:bg-red-900/30 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors text-sm leading-none"
+          >
+            ↪
+          </LogoutButton>
         </div>
       </div>
 
       {/* Profile selector dropdown */}
       {showProfiles && (
-        <div className="border-b border-orange-50 bg-white shadow-sm">
+        <div className="border-b border-orange-50 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
           <ChildProfileSelector
             parentId={parentId}
             activeChildId={activeChildId}
