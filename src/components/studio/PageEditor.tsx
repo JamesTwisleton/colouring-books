@@ -146,7 +146,7 @@ export default function PageEditor({
       {/* ── Auto-save notice ── */}
       <div className="bg-blue-50 dark:bg-blue-950/30 border-b border-blue-100 dark:border-blue-900/40 px-4 py-2 flex items-center gap-2 shrink-0">
         <span className="text-blue-500 dark:text-blue-400 text-xs font-semibold">Auto-save is on</span>
-        <span className="text-blue-400 dark:text-blue-500 text-xs">— every change saves automatically. No save button needed.</span>
+        <span className="text-blue-400 dark:text-blue-500 text-xs">— every change saves automatically.</span>
         {hasIllustration && (
           <span className="ml-auto flex items-center gap-1.5 text-xs text-blue-500 dark:text-blue-400">
             <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
