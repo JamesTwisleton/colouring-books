@@ -17,6 +17,16 @@ interface ColouringCanvasProps {
   pageNumber: number;
   totalPages: number;
   completionThreshold?: number;
+  /** Base path for prev/next navigation — defaults to /colouring/[bookId] */
+  pageBasePath?: string;
+  /** Href for the back link — defaults to /library */
+  backHref?: string;
+  /** Label for the back link — defaults to "Library" */
+  backLabel?: string;
+  /** Full path to share (client uses window.location.origin as base) */
+  shareUrl?: string;
+  /** True when the user is not logged in — shows save-progress banner */
+  isAnonymous?: boolean;
 }
 
 // Full palette for tablet+ (scrollable row)
@@ -89,6 +99,11 @@ export default function ColouringCanvas({
   pageNumber,
   totalPages,
   completionThreshold = DEFAULT_NEXT_PAGE_THRESHOLD,
+  pageBasePath,
+  backHref = "/library",
+  backLabel = "Library",
+  shareUrl,
+  isAnonymous = false,
 }: ColouringCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -98,9 +113,28 @@ export default function ColouringCanvas({
   const [brushOpacity] = useState(1.0);
   const [completed, setCompleted] = useState(false);
   const [fill, setFill] = useState(0); // 0–1
+  const [shareCopied, setShareCopied] = useState(false);
 
+  const navBase = pageBasePath ?? `/colouring/${bookId}`;
   const fillPct = Math.round(fill * 100);
   const canGoNext = !!nextPageId && (completionThreshold === 0 || fill >= completionThreshold);
+
+  async function handleShare() {
+    const fullUrl = shareUrl
+      ? new URL(shareUrl, window.location.origin).href
+      : window.location.href;
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title: "Colour this page!", url: fullUrl });
+      } catch {
+        // User cancelled — no-op
+      }
+    } else {
+      await navigator.clipboard.writeText(fullUrl);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    }
+  }
 
   useColouringEngine({
     containerRef,
@@ -115,18 +149,16 @@ export default function ColouringCanvas({
     onFillUpdate: setFill,
   });
 
-  void pageId;
-
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-white relative">
 
       {/* ─── Top nav bar ─── */}
       <div className="h-12 border-b border-gray-100 bg-white flex items-center justify-between px-4 shrink-0 z-10">
         <Link
-          href="/library"
+          href={backHref}
           className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
         >
-          ← Library
+          ← {backLabel}
         </Link>
 
         <span className="text-sm font-medium text-gray-600">
@@ -134,9 +166,18 @@ export default function ColouringCanvas({
         </span>
 
         <div className="flex items-center gap-2">
+          {shareUrl && (
+            <button
+              onClick={handleShare}
+              title={shareCopied ? "Link copied!" : "Share this page"}
+              className="px-3 py-1.5 text-xs font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              {shareCopied ? "Copied!" : "Share"}
+            </button>
+          )}
           {prevPageId && (
             <button
-              onClick={() => router.push(`/colouring/${bookId}/${prevPageId}`)}
+              onClick={() => router.push(`${navBase}/${prevPageId}`)}
               className="px-3 py-1.5 text-xs font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               ← Prev
@@ -144,7 +185,7 @@ export default function ColouringCanvas({
           )}
           {nextPageId && (
             <button
-              onClick={() => router.push(`/colouring/${bookId}/${nextPageId}`)}
+              onClick={() => router.push(`${navBase}/${nextPageId}`)}
               disabled={!canGoNext}
               title={
                 canGoNext
@@ -162,6 +203,22 @@ export default function ColouringCanvas({
           )}
         </div>
       </div>
+
+      {/* ─── Anonymous save banner ─── */}
+      {isAnonymous && (
+        <div className="bg-[#ff6b6b]/10 border-b border-[#ff6b6b]/20 px-4 py-2 flex items-center justify-between gap-3 shrink-0 z-10">
+          <p className="text-xs text-gray-700 leading-snug">
+            <span className="font-semibold">Your progress won&apos;t be saved.</span>{" "}
+            Create a free account to keep your colourings.
+          </p>
+          <Link
+            href="/signup"
+            className="shrink-0 px-3 py-1.5 bg-[#ff6b6b] text-white text-xs font-semibold rounded-lg hover:bg-[#e04f4f] transition-colors"
+          >
+            Sign up free
+          </Link>
+        </div>
+      )}
 
       {/* Canvas area */}
       <div
@@ -291,7 +348,7 @@ export default function ColouringCanvas({
             </p>
             {nextPageId && (
               <button
-                onClick={() => router.push(`/colouring/${bookId}/${nextPageId}`)}
+                onClick={() => router.push(`${navBase}/${nextPageId}`)}
                 className="px-6 py-2.5 bg-[#ff6b6b] text-white rounded-xl text-sm font-semibold hover:bg-[#e04f4f] transition-colors"
               >
                 Next page →

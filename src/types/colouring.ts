@@ -81,6 +81,7 @@ export interface AuthoredBook {
   isPublic: boolean;
   status: "draft" | "published";
   authorId: string;
+  slug: string | null;
   pageCount: number;
   createdAt: string;
   pages?: StudioPage[];

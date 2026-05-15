@@ -77,6 +77,7 @@ export interface Database {
           author_id: string | null;
           is_public: boolean;
           status: string;
+          slug: string | null;
           created_at: string;
         };
         Insert: {
@@ -90,6 +91,7 @@ export interface Database {
           author_id?: string | null;
           is_public?: boolean;
           status?: string;
+          slug?: string | null;
           created_at?: string;
         };
         Update: {
@@ -103,6 +105,7 @@ export interface Database {
           author_id?: string | null;
           is_public?: boolean;
           status?: string;
+          slug?: string | null;
           created_at?: string;
         };
         Relationships: [];

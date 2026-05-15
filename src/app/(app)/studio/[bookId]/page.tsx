@@ -15,7 +15,7 @@ export default async function BookEditorPage({ params }: Props) {
 
   const { data: book } = await supabase
     .from("books")
-    .select("id, title, description, cover_image_url, is_public, status")
+    .select("id, title, description, cover_image_url, is_public, status, slug")
     .eq("id", bookId)
     .eq("author_id", user!.id)
     .maybeSingle();
@@ -31,6 +31,7 @@ export default async function BookEditorPage({ params }: Props) {
       initialIsPublic={book.is_public}
       initialStatus={(book.status ?? "draft") as "draft" | "published"}
       initialCoverImageUrl={book.cover_image_url ?? null}
+      initialSlug={(book as Record<string, unknown>).slug as string | null ?? null}
     />
   );
 }

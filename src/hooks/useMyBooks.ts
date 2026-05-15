@@ -12,6 +12,7 @@ function mapBook(b: Record<string, unknown>): AuthoredBook {
     isPublic: (b.is_public as boolean) ?? false,
     status: ((b.status as string) ?? "draft") as "draft" | "published",
     authorId: (b.author_id as string) ?? "",
+    slug: (b.slug as string | null) ?? null,
     pageCount: (b.page_count as number) ?? 0,
     createdAt: b.created_at as string,
     pages: pages.map((p: Record<string, unknown>) => ({
@@ -35,7 +36,7 @@ export function useMyBooks(userId: string | undefined) {
       const { data, error } = await supabase
         .from("books")
         .select(
-          "id, title, description, cover_image_url, is_public, status, author_id, page_count, created_at, pages(id, book_id, page_number, outline_url)"
+          "id, title, description, cover_image_url, is_public, status, author_id, slug, page_count, created_at, pages(id, book_id, page_number, outline_url)"
         )
         .eq("author_id", userId)
         .order("created_at", { ascending: false });
@@ -95,6 +96,7 @@ export function useUpdateBook() {
       coverImageUrl,
       isPublic,
       status,
+      slug,
     }: {
       bookId: string;
       title?: string;
@@ -102,6 +104,7 @@ export function useUpdateBook() {
       coverImageUrl?: string | null;
       isPublic?: boolean;
       status?: "draft" | "published";
+      slug?: string | null;
     }) => {
       const supabase = createClient();
       const { error } = await supabase
@@ -112,6 +115,7 @@ export function useUpdateBook() {
           ...(coverImageUrl !== undefined && { cover_image_url: coverImageUrl }),
           ...(isPublic !== undefined && { is_public: isPublic }),
           ...(status !== undefined && { status }),
+          ...(slug !== undefined && { slug }),
         })
         .eq("id", bookId);
       if (error) throw error;

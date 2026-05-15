@@ -15,6 +15,7 @@ export default function BookEditor({
   initialIsPublic,
   initialStatus,
   initialCoverImageUrl,
+  initialSlug,
 }: {
   bookId: string;
   userId: string;
@@ -23,6 +24,7 @@ export default function BookEditor({
   initialIsPublic: boolean;
   initialStatus: "draft" | "published";
   initialCoverImageUrl: string | null;
+  initialSlug: string | null;
 }) {
   const { data: books = [] } = useMyBooks(userId);
   const book = books.find((b) => b.id === bookId);
@@ -34,6 +36,7 @@ export default function BookEditor({
     title: initialTitle,
     description: initialDescription,
     isPublic: initialIsPublic,
+    slug: initialSlug ?? "",
   });
   const [currentStatus, setCurrentStatus] = useState(initialStatus);
   const [currentCoverUrl, setCurrentCoverUrl] = useState(initialCoverImageUrl);
@@ -42,12 +45,18 @@ export default function BookEditor({
   const [coverUploading, setCoverUploading] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
-  const { title, description, isPublic } = form;
+  const { title, description, isPublic, slug } = form;
 
   async function handleSave() {
     setSaving(true);
     try {
-      await updateBook.mutateAsync({ bookId, title, description: description || null, isPublic });
+      await updateBook.mutateAsync({
+        bookId,
+        title,
+        description: description || null,
+        isPublic,
+        slug: slug.trim() || null,
+      });
       setSaveMsg("Saved");
     } finally {
       setSaving(false);
@@ -59,7 +68,14 @@ export default function BookEditor({
     setSaving(true);
     const newStatus = currentStatus === "published" ? "draft" : "published";
     try {
-      await updateBook.mutateAsync({ bookId, title, description: description || null, isPublic, status: newStatus });
+      await updateBook.mutateAsync({
+        bookId,
+        title,
+        description: description || null,
+        isPublic,
+        slug: slug.trim() || null,
+        status: newStatus,
+      });
       setCurrentStatus(newStatus);
       setSaveMsg(newStatus === "published" ? "Published!" : "Moved to drafts");
     } finally {
@@ -178,6 +194,36 @@ export default function BookEditor({
                 rows={3}
                 className="w-full px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#ff6b6b]/40 focus:border-[#ff6b6b] text-sm resize-none"
               />
+            </div>
+
+            {/* Slug / public URL */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                URL slug
+                <span className="ml-1 text-xs font-normal text-gray-400">(optional)</span>
+              </label>
+              <div className="flex items-center rounded-xl border border-gray-200 focus-within:ring-2 focus-within:ring-[#ff6b6b]/40 focus-within:border-[#ff6b6b] overflow-hidden">
+                <span className="px-2 text-xs text-gray-400 bg-gray-50 border-r border-gray-200 h-full flex items-center py-2 shrink-0 select-none">
+                  /book/
+                </span>
+                <input
+                  type="text"
+                  value={slug}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/--+/g, "-"),
+                    }))
+                  }
+                  placeholder="my-book-title"
+                  className="flex-1 px-2 py-2 text-sm outline-none bg-white"
+                />
+              </div>
+              {slug && (
+                <p className="mt-1 text-xs text-gray-400 break-all">
+                  Share link: /book/{slug}
+                </p>
+              )}
             </div>
 
             {/* Visibility */}

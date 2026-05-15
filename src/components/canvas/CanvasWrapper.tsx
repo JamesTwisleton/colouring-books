@@ -29,6 +29,11 @@ interface CanvasWrapperProps {
   pageNumber: number;
   totalPages: number;
   completionThreshold?: number;
+  pageBasePath?: string;
+  backHref?: string;
+  backLabel?: string;
+  shareUrl?: string;
+  isAnonymous?: boolean;
 }
 
 export default function CanvasWrapper(props: CanvasWrapperProps) {
