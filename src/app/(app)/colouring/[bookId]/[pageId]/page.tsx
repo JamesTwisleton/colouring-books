@@ -12,7 +12,7 @@ export default async function ColouringPage({ params }: PageProps) {
 
   const { data: pages } = await supabase
     .from("pages")
-    .select("id, page_number, outline_url, animatable_elements_url")
+    .select("id, page_number, outline_url, animatable_elements_url, completion_threshold")
     .eq("book_id", bookId)
     .order("page_number", { ascending: true });
 
@@ -36,6 +36,7 @@ export default async function ColouringPage({ params }: PageProps) {
         nextPageId={nextPage?.id}
         pageNumber={currentPage.page_number}
         totalPages={pages.length}
+        completionThreshold={(currentPage as Record<string, unknown>).completion_threshold as number ?? 0.6}
       />
     </div>
   );

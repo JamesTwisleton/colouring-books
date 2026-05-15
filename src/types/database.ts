@@ -74,6 +74,9 @@ export interface Database {
           price_digital_cents: number;
           price_physical_cents: number;
           page_count: number;
+          author_id: string | null;
+          is_public: boolean;
+          status: string;
           created_at: string;
         };
         Insert: {
@@ -81,9 +84,12 @@ export interface Database {
           title: string;
           description?: string | null;
           cover_image_url?: string | null;
-          price_digital_cents: number;
-          price_physical_cents: number;
-          page_count: number;
+          price_digital_cents?: number;
+          price_physical_cents?: number;
+          page_count?: number;
+          author_id?: string | null;
+          is_public?: boolean;
+          status?: string;
           created_at?: string;
         };
         Update: {
@@ -94,6 +100,9 @@ export interface Database {
           price_digital_cents?: number;
           price_physical_cents?: number;
           page_count?: number;
+          author_id?: string | null;
+          is_public?: boolean;
+          status?: string;
           created_at?: string;
         };
         Relationships: [];
@@ -105,14 +114,18 @@ export interface Database {
           page_number: number;
           outline_url: string;
           animatable_elements_url: string;
+          completion_threshold: number;
+          page_title: string | null;
           created_at: string;
         };
         Insert: {
           id?: string;
           book_id: string;
           page_number: number;
-          outline_url: string;
-          animatable_elements_url: string;
+          outline_url?: string;
+          animatable_elements_url?: string;
+          completion_threshold?: number;
+          page_title?: string | null;
           created_at?: string;
         };
         Update: {
@@ -121,6 +134,8 @@ export interface Database {
           page_number?: number;
           outline_url?: string;
           animatable_elements_url?: string;
+          completion_threshold?: number;
+          page_title?: string | null;
           created_at?: string;
         };
         Relationships: [

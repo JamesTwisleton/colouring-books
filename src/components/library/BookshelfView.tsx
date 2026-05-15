@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useLibrary } from "@/hooks/useLibrary";
 import { useChildren } from "@/hooks/useChildren";
 import { cacheBookAssets } from "@/lib/idb/assetCache";
@@ -51,7 +52,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
       {/* Header bar */}
       <div className="px-6 py-4 flex items-center justify-between border-b border-orange-50">
         <div>
-          <h1 className="text-2xl font-bold text-[#ff6b6b]">📚 My Books</h1>
+          <h1 className="text-2xl font-bold text-[#ff6b6b]">My Books</h1>
           {activeChild && (
             <p className="text-sm text-gray-500 mt-0.5">
               Colouring as{" "}
@@ -62,6 +63,14 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
           )}
         </div>
 
+        {/* Studio link + child switcher */}
+        <div className="flex items-center gap-2">
+        <Link
+          href="/studio"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 transition-colors text-sm font-medium text-gray-600"
+        >
+          ✏️ Studio
+        </Link>
         {/* Child switcher */}
         <button
           onClick={() => setShowProfilesOverride(!showProfiles)}
@@ -85,6 +94,7 @@ export default function BookshelfView({ parentId }: BookshelfViewProps) {
             </span>
           )}
         </button>
+        </div>
       </div>
 
       {/* Profile selector dropdown */}

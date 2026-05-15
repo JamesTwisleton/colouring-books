@@ -68,4 +68,30 @@ export interface PageConfig {
   pageNumber: number;
   outlineUrl: string;
   animatableElementsUrl: string;
+  completionThreshold: number;
+}
+
+// ─── Studio / authoring types ────────────────────────────────
+
+export interface AuthoredBook {
+  id: string;
+  title: string;
+  description: string | null;
+  coverImageUrl: string | null;
+  isPublic: boolean;
+  status: "draft" | "published";
+  authorId: string;
+  pageCount: number;
+  createdAt: string;
+  pages?: StudioPage[];
+}
+
+export interface StudioPage {
+  id: string;
+  bookId: string;
+  pageNumber: number;
+  outlineUrl: string;
+  animatableElementsUrl: string;
+  completionThreshold: number;
+  pageTitle: string | null;
 }

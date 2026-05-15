@@ -16,6 +16,7 @@ interface ColouringCanvasProps {
   nextPageId?: string;
   pageNumber: number;
   totalPages: number;
+  completionThreshold?: number;
 }
 
 // Full palette for tablet+ (scrollable row)
@@ -44,7 +45,7 @@ const MOBILE_PALETTE = [
 
 const BRUSH_SIZES = [4, 8, 14, 22, 32];
 
-const NEXT_PAGE_THRESHOLD = 0.6;
+const DEFAULT_NEXT_PAGE_THRESHOLD = 0.6;
 
 function FillRing({ pct }: { pct: number }) {
   const r = 17;
@@ -87,6 +88,7 @@ export default function ColouringCanvas({
   nextPageId,
   pageNumber,
   totalPages,
+  completionThreshold = DEFAULT_NEXT_PAGE_THRESHOLD,
 }: ColouringCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -98,7 +100,7 @@ export default function ColouringCanvas({
   const [fill, setFill] = useState(0); // 0–1
 
   const fillPct = Math.round(fill * 100);
-  const canGoNext = !!nextPageId && fill >= NEXT_PAGE_THRESHOLD;
+  const canGoNext = !!nextPageId && (completionThreshold === 0 || fill >= completionThreshold);
 
   useColouringEngine({
     containerRef,
@@ -147,7 +149,7 @@ export default function ColouringCanvas({
               title={
                 canGoNext
                   ? "Go to next page"
-                  : `Colour ${Math.round(NEXT_PAGE_THRESHOLD * 100)}% of this page to unlock the next one (${fillPct}% so far)`
+                  : `Colour ${Math.round(completionThreshold * 100)}% of this page to unlock the next one (${fillPct}% so far)`
               }
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
                 canGoNext

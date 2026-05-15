@@ -9,16 +9,18 @@ export function useLibrary(parentId: string | undefined) {
       if (!parentId) return [];
       const supabase = createClient();
 
-      // Fetch all available books directly (purchase gating disabled until payments are implemented)
+      // Only show public published books in the library
       const { data, error } = await supabase
         .from("books")
         .select(`
           id, title, description, cover_image_url,
           price_digital_cents, price_physical_cents, page_count,
           pages (
-            id, book_id, page_number, outline_url, animatable_elements_url
+            id, book_id, page_number, outline_url, animatable_elements_url, completion_threshold
           )
         `)
+        .eq("is_public", true)
+        .eq("status", "published")
         .order("created_at", { ascending: true });
 
       if (error) throw error;
@@ -37,6 +39,7 @@ export function useLibrary(parentId: string | undefined) {
           pageNumber: p.page_number,
           outlineUrl: p.outline_url,
           animatableElementsUrl: p.animatable_elements_url,
+          completionThreshold: (p as Record<string, unknown>).completion_threshold as number ?? 0.6,
         })),
       }));
     },

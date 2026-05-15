@@ -28,6 +28,7 @@ interface CanvasWrapperProps {
   nextPageId?: string;
   pageNumber: number;
   totalPages: number;
+  completionThreshold?: number;
 }
 
 export default function CanvasWrapper(props: CanvasWrapperProps) {
