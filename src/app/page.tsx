@@ -8,7 +8,7 @@ export default async function LandingPage() {
   } = await supabase.auth.getUser();
 
   return (
-    <main className="min-h-screen bg-[#fff9f0] overflow-x-hidden">
+    <main className="h-dvh overflow-y-auto overflow-x-hidden bg-[#fff9f0]">
 
       {/* ─── Nav ──────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 bg-[#fff9f0]/90 backdrop-blur border-b border-orange-100">
