@@ -41,7 +41,7 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-dvh bg-[#fff9f0] flex items-center justify-center p-4 pt-safe pb-safe overflow-y-auto">
+      <div className="h-dvh overflow-y-auto bg-[#fff9f0] flex items-center justify-center p-4 pt-safe pb-safe">
         <div className="w-full max-w-sm text-center">
           <div className="text-5xl mb-4">📬</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
